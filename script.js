@@ -1,7 +1,11 @@
-function add(numbers){
-    return (numbers.reduce((accumulator, current) => {return accumulator + current;}, 0)); 
+function add(number1, number2){
+    return number1 + number2;
 }
 
-function subtract(numbers){
-    return (numbers.reduce((accumulator, current) => {return accumulator - current;}, 0));
+function subtract(number1, number2){
+    return number1 - number2;
+}
+
+function multiply(number1, number2){
+    return number1 * number2;
 }
