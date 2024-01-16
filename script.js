@@ -1,3 +1,18 @@
+let displayValue = [];
+let operatorPreviously = false;
+let defaultValue = true;
+
+function setDisplayValueToDefault(){
+    displayValue = [];
+    defaultValue = true;
+    console.log(displayValue);
+}
+
+function appendDisplayValue(value){
+    displayValue.push(value);
+    console.log(displayValue);
+}
+
 function add(number1, number2){
     return number1 + number2;
 }
@@ -41,11 +56,25 @@ function displayClickedButton(character){
     const display = document.querySelector("#display");
     if (character == "Clear"){
         display.innerText = "0"
+        setDisplayValueToDefault();
         return;
     }
-    if (character == "-" || "+" || "/" || "*"){
+
+    else if(character == "="){
+        operator();
+    }
+    else if (["-", "+", "*", "/"].includes(character)){
+        appendDisplayValue(display.innerText);
         display.innerText += character;
+        appendDisplayValue(character);
+        operatorPreviously = true;
         return;
     }
-    display.innerText = character;
+    else if(operatorPreviously || defaultValue){
+        display.innerText = character;
+        operatorPreviously = false;
+        defaultValue = false;
+        return;
+    }
+    display.innerText += character;
 }
