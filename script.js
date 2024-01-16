@@ -29,3 +29,23 @@ function operator(operator, number1, number2){
             return divide(number1, number2);
         }
 }
+
+const buttons = document.querySelectorAll("button")
+buttons.forEach(function(button){ button.addEventListener('click', function() {buttonClickHandler(button)})});
+
+function buttonClickHandler(button){
+    displayClickedButton(button.innerText);
+}
+
+function displayClickedButton(character){
+    const display = document.querySelector("#display");
+    if (character == "Clear"){
+        display.innerText = "0"
+        return;
+    }
+    if (character == "-" || "+" || "/" || "*"){
+        display.innerText += character;
+        return;
+    }
+    display.innerText = character;
+}
