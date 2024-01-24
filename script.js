@@ -1,22 +1,35 @@
 let displayValue = [];
 let operatorPreviously = false;
+let justCalculated = false;
 //let defaultValue = true;
 
 function setDisplayValueToDefault(){
     displayValue = [];
     //defaultValue = true;
-    console.log(displayValue);
+}
+
+function isOperator(character){
+    return ["-", "+", "*", "/"].includes(character);
 }
 
 function appendDisplayValue(value){
-    if (displayValue.length == 1 && !["-", "+", "*", "/"].includes(value)){
-        displayValue = [];
+    if (displayValue.length == 1 && !isOperator(value)){
+        setDisplayValueToDefault();
+        if (value == "="){
+            setDisplayValueToDefault();
+            return;
+        }
         display.innerText = value;
     }
     if (displayValue.length == 3){
         const result = operatorOfCalculations(displayValue[1], displayValue[0], displayValue[2])
         display.innerText = result;
         displayValue.splice(0, 3, result);
+        justCalculated = true
+        if (isOperator(value)){
+            displayValue.push(value);
+            display.innerText += value;
+        }
         return
     }
     if (value != "="){
@@ -71,7 +84,9 @@ function displayResult(result){
     const display = document.querySelector("#display");
     display.innerText = result;
 }
-//make the clicked button apear n the calculator's display
+
+//make the clicked button appear on the calculator's display
+
 function displayClickedButton(character){
     const display = document.querySelector("#display");
     if (character == "Clear"){
@@ -85,16 +100,18 @@ function displayClickedButton(character){
         appendDisplayValue(character);
     }
 
-    else if (["-", "+", "*", "/"].includes(character)){
+    else if (isOperator(character)){
+        //if (checkIfOperatorAlreadyPressed){}
         appendDisplayValue(display.innerText);
         display.innerText += character;
         appendDisplayValue(character);
         operatorPreviously = true;
         return;
     }
-    else if(operatorPreviously || isDefaultValueOnDisplay()) {
+    else if(operatorPreviously || justCalculated || isDefaultValueOnDisplay()) {
         display.innerText = character;
         operatorPreviously = false;
+        justCalculated = false;
         //defaultValue = false;
         return;
     }
@@ -109,7 +126,7 @@ function isDefaultValueOnDisplay(){
 }
 
 function checkIfOperatorCharacterMissingBetweenNumbers(character){
-    if( displayValue.length == 1 && !["-", "+", "*", "/"].includes(character)){
+    if( displayValue.length == 1 && !isOperator(character)){
         setDisplayValueToDefault();
         return true;
     }
