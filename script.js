@@ -1,15 +1,29 @@
 let displayValue = [];
 let operatorPreviously = false;
-let defaultValue = true;
+//let defaultValue = true;
 
 function setDisplayValueToDefault(){
     displayValue = [];
-    defaultValue = true;
+    //defaultValue = true;
     console.log(displayValue);
 }
 
 function appendDisplayValue(value){
-    displayValue.push(value);
+    if (displayValue.length == 1 && !["-", "+", "*", "/"].includes(value)){
+        displayValue = [];
+        display.innerText = value;
+    }
+    if (displayValue.length == 3){
+        const result = operatorOfCalculations(displayValue[1], displayValue[0], displayValue[2])
+        display.innerText = result;
+        displayValue.splice(0, 3, result);
+        return
+    }
+    if (value != "="){
+        displayValue.push(value);
+    }
+    
+    
 }
 
 function add(number1, number2){
@@ -57,7 +71,7 @@ function displayResult(result){
     const display = document.querySelector("#display");
     display.innerText = result;
 }
-
+//make the clicked button apear n the calculator's display
 function displayClickedButton(character){
     const display = document.querySelector("#display");
     if (character == "Clear"){
@@ -67,8 +81,8 @@ function displayClickedButton(character){
     }
 
     else if(character == "="){
-        appendDisplayValue(display.innerText)
-        calculate();
+        appendDisplayValue(display.innerText);
+        appendDisplayValue(character);
     }
 
     else if (["-", "+", "*", "/"].includes(character)){
@@ -78,15 +92,33 @@ function displayClickedButton(character){
         operatorPreviously = true;
         return;
     }
-    else if(operatorPreviously || defaultValue){
+    else if(operatorPreviously || isDefaultValueOnDisplay()) {
         display.innerText = character;
         operatorPreviously = false;
-        defaultValue = false;
+        //defaultValue = false;
         return;
     }
-    display.innerText += character;
+    if (character != "="){
+        checkIfOperatorCharacterMissingBetweenNumbers(character)
+        display.innerText += character;}
+    
 }
 
+function isDefaultValueOnDisplay(){
+    return display.innerText == "0";
+}
+
+function checkIfOperatorCharacterMissingBetweenNumbers(character){
+    if( displayValue.length == 1 && !["-", "+", "*", "/"].includes(character)){
+        setDisplayValueToDefault();
+        return true;
+    }
+    return false;
+}
+//this is a much more complicated calculate function than the needed one :DD 
+//I just did not understand the exercise for the first read
+
+/* 
 function calculate(){
     const operators = [ "*", "/", "+", "-"];
     operators.forEach( (operator) => {
@@ -95,6 +127,8 @@ function calculate(){
         const num2 = displayValue[displayValue.indexOf(operator) + 1]
         const result = operatorOfCalculations(operator, num1, num2) 
         displayValue.splice(displayValue.indexOf(operator) - 1, 3, result);
+        if(displayValue.length == 1){
+            displayResult(result)}
     }
     })
-}
+}*/
