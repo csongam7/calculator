@@ -89,10 +89,47 @@ function displayResult(result){
 
 function displayClickedButton(character){
     const display = document.querySelector("#display");
+
+    /*switch(character){
+
+        case "Clear":
+            display.innerText = "0"
+            setDisplayValueToDefault();
+            return;
+
+        case "=":
+            appendDisplayValue(display.innerText);
+            appendDisplayValue(character);
+
+        case isOperator(character):
+            appendDisplayValue(display.innerText);
+            display.innerText += character;
+            appendDisplayValue(character);
+            operatorPreviously = true;
+            return;
+        }
+
+    if ( operatorPreviously || justCalculated || isDefaultValueOnDisplay() ){
+        display.innerText = character;
+        operatorPreviously = false;
+        justCalculated = false;
+        //defaultValue = false;
+        return;
+    }
+    else if( character != "="){
+        checkIfOperatorCharacterMissingBetweenNumbers(character)
+        display.innerText += character;
+    }
+}*/
+    
     if (character == "Clear"){
         display.innerText = "0"
         setDisplayValueToDefault();
         return;
+    }
+
+    else if (character == "+/-"){
+        toggleNumberToMinus();
     }
 
     else if(character == "="){
@@ -115,11 +152,12 @@ function displayClickedButton(character){
         //defaultValue = false;
         return;
     }
-    if (character != "="){
+    if (character != "=" && character != "+/-"){
         checkIfOperatorCharacterMissingBetweenNumbers(character)
         display.innerText += character;}
     
 }
+
 
 function isDefaultValueOnDisplay(){
     return display.innerText == "0";
@@ -131,6 +169,10 @@ function checkIfOperatorCharacterMissingBetweenNumbers(character){
         return true;
     }
     return false;
+}
+
+function toggleNumberToMinus(){
+    display.innerText = String(parseInt(display.innerText) * -1);
 }
 //this is a much more complicated calculate function than the needed one :DD 
 //I just did not understand the exercise for the first read
