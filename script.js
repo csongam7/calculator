@@ -173,11 +173,11 @@ function checkIfOperatorCharacterMissingBetweenNumbers(character){
 
 function toggleNumberToMinus(){
     if(isOperator(displayValue[displayValue.length - 1])){
-        display.innerText = String(parseInt(display.innerText) * -1) + displayValue[displayValue.length - 1];
-        displayValue[0] = String(parseInt(displayValue[0] * -1));
+        display.innerText = String(parseFloat(display.innerText) * -1) + displayValue[displayValue.length - 1];
+        displayValue[0] = String(parseFloat(displayValue[0] * -1));
         return;
     }
-    display.innerText = String(parseInt(display.innerText) * -1);
+    display.innerText = String(parseFloat(display.innerText) * -1);
 }
 //this is a much more complicated calculate function than the needed one :DD 
 //I just did not understand the exercise for the first read
