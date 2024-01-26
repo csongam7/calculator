@@ -35,8 +35,6 @@ function appendDisplayValue(value){
     if (value != "="){
         displayValue.push(value);
     }
-    
-    
 }
 
 function add(number1, number2){
@@ -89,38 +87,6 @@ function displayResult(result){
 
 function displayClickedButton(character){
     const display = document.querySelector("#display");
-
-    /*switch(character){
-
-        case "Clear":
-            display.innerText = "0"
-            setDisplayValueToDefault();
-            return;
-
-        case "=":
-            appendDisplayValue(display.innerText);
-            appendDisplayValue(character);
-
-        case isOperator(character):
-            appendDisplayValue(display.innerText);
-            display.innerText += character;
-            appendDisplayValue(character);
-            operatorPreviously = true;
-            return;
-        }
-
-    if ( operatorPreviously || justCalculated || isDefaultValueOnDisplay() ){
-        display.innerText = character;
-        operatorPreviously = false;
-        justCalculated = false;
-        //defaultValue = false;
-        return;
-    }
-    else if( character != "="){
-        checkIfOperatorCharacterMissingBetweenNumbers(character)
-        display.innerText += character;
-    }
-}*/
     
     if (character == "Clear"){
         display.innerText = "0"
@@ -157,7 +123,6 @@ function displayClickedButton(character){
         display.innerText += character;}
     
 }
-
 
 function isDefaultValueOnDisplay(){
     return display.innerText == "0";
